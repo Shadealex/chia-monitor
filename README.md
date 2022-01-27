@@ -1,6 +1,10 @@
 # chia-monitor [![discord](https://img.shields.io/discord/845771315118080020.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/K5KyD9mXDh)
 
-A monitoring tool to collect all important metrics from your Chia farming node and connected harvesters. It can send you push notifications with regular status updates and will alert you in case something goes wrong or a proof is found. All metrics are exported to a [Prometheus](https://prometheus.io) compatible `/metrics` endpoint and a [Grafana](https://grafana.com/) dashboard is also provided:
+A monitoring tool to collect all important metrics from your [Chia](https://github.com/Chia-Network/chia-blockchain) farming node and connected harvesters.
+
+These metrics are collected from the Chia daemon via RPC and WebSocket interfaces and can also be used to send you push notifications with regular status updates, alert you if something goes wrong, a proof is found, or you receive payments to your farmer wallet.
+
+All metrics are exported to a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` endpoint and a [Grafana](https://github.com/grafana/grafana) dashboard is also provided:
 
 ![grafana](.readme/grafana.png)
 
@@ -83,11 +87,19 @@ Expected: 130, Found: 124
 Your farmer's plot count has recovered to its previous value
 ```
 
+### Payment alert
+
+```md
+** 🤑 Payment received! 🤑 **
+Your wallet received a new payment
+🌱 +0.10240 XCH
+```
+
 ---
 
 ## Metrics
 
-The following statistics are collected from your local [Chia](https://chia.net) node using the [RPC](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces) and WebSocket APIs and are then exported via a [Prometheus](https://prometheus.io) compatible `/metrics` HTTP endpoint on the `exporter_port` from your `config.json`.
+The following statistics are collected from your local [Chia](https://github.com/Chia-Network/chia-blockchain) node using the [RPC](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces) and WebSocket APIs and are then exported via a [Prometheus](https://github.com/prometheus/prometheus) compatible `/metrics` HTTP endpoint on the `exporter_port` from your `config.json`.
 
 ### Supported wallet metrics
 
@@ -117,6 +129,7 @@ The following statistics are collected from your local [Chia](https://chia.net) 
 - Attempted challenges (`chia_block_challenges`)
 - Plots passed filter (`chia_plots_passed_filter`)
 - Proofs found (`chia_proofs_found`)
+- Lookup time (`chia_lookup_time_seconds`)
 
 ### Supported pooling metrics
 
@@ -203,6 +216,8 @@ pipenv install
 ```bash
 pipenv run alembic upgrade head
 ```
+
+4. Import (Overwrite) the Grafana dashboard using the ID `14544` or using the `grafana/dashboard.json`
 
 ## Usage
 
