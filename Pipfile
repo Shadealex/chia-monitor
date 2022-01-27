@@ -11,6 +11,7 @@ SQLAlchemy = "*"
 alembic = "*"
 apprise = "*"
 chia-blockchain = "*"
+importlib-resources = "*"
 
 [dev-packages]
 pytest = "*"
